@@ -2,6 +2,7 @@ import gspread
 import json
 import os
 
+# TODO update the new google sheet & receive the api key and all
 with open('creds.json', 'w') as f:
     data = json.loads(os.environ.get('GOOGLE_KEY'))
     json.dump(data, f, indent=4)
@@ -9,7 +10,7 @@ with open('creds.json', 'w') as f:
 service_account = gspread.service_account(filename="creds.json") # need to access the file from an env later on alongside the API_KEY for telegram
 workbook = service_account.open("angel-mortal-responses")
 gsheetresponses = workbook.worksheet("Form Responses 1") # google sheet is linked and working
-gsheetlogin = workbook.worksheet("login") # track people who have login
+gsheet_overview = workbook.worksheet("overview") # track people who have login and last messages
 gsheetlvl1names = workbook.worksheet("level_1").col_values(1)
 gsheetlvl1 = workbook.worksheet("level_1")
 gsheetlvl2names = workbook.worksheet("level_2").col_values(1)
@@ -31,7 +32,7 @@ gsheetlvl3comma = commas_list(gsheetlvl3names)
 
 def get_chat_ids():
     # sheet.update('A6:B6', [['yes', 41929]])
-    records = gsheetlogin.get_all_records() # stores in a list of dictionaries
+    records = gsheet_overview.get_all_records() # stores in a list of dictionaries
     # print(records)
     chat_ids = {d['user']: d['user_chat_id'] for d in records}
     # print(chat_ids)
@@ -42,9 +43,9 @@ def update_chat_ids(username, chat_id):
     chat_ids = get_chat_ids()
     chat_ids[username] = int(chat_id) 
     # search user column (column A) for username
-    cell = gsheetlogin.find(username, in_column=1)
+    cell = gsheet_overview.find(username, in_column=1)
     # update user_chat_id (same row, col+1)
-    gsheetlogin.update_cell(cell.row, cell.col + 1, chat_ids[username])
+    gsheet_overview.update_cell(cell.row, cell.col + 1, chat_ids[username])
     # gsheetlogin.update("A2", [[key, value]
     #              for key, value in sorted(chat_ids.items())])
     # update playerdict
@@ -65,10 +66,19 @@ def create_playerdict(sheet):
     # print(new_dict)
     return new_dict
 
-# TODO: get_all_information() to prepare information from Form Responses 1 and tidy them up into a presentable format
 
-# TODO: Function to update angel_chat_id and mortal_chat_id from user_chat_id
-# can be done manually on the google sheet or iteratively here by scraping through the sheet and updating when matched via name
+# TODO
+# new function to check time of last message from user to angel / mortal
+    # if either of the time exceeds 3 days, send a reminder to them
+    # if either of the time exceeds 5 days, send a warning to them and message me their tele handle
+def check_sheet_timing(sheet):
+    # 
+    pass
+
+# TODO
+# new function to update timing from the given user, update_for (angel or mortal timings), input sheet
+def update_timing(user, update_for, sheet):
+    pass
 
 
 PLAYER_LVL1_INFO = create_playerdict(gsheetlvl1)

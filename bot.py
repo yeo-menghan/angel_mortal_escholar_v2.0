@@ -166,10 +166,6 @@ async def check_message(update: Update, context: CallbackContext):
                 chat_id=update.effective_chat.id
             )
         return mortal_chat_id
-        # context.bot.send_message(
-        #     text='Your angel says: ' + update.message.text,
-        #     chat_id=mortal_chat_id
-        # )
     elif player.get_chat_with() == 'angel':
         angel_chat_id = player.get_angel().get_chat_id()
         if not angel_chat_id:
@@ -178,10 +174,6 @@ async def check_message(update: Update, context: CallbackContext):
                 chat_id=update.effective_chat.id
             )
         return angel_chat_id
-        # context.bot.send_message(
-        #     text='Your mortal says: ' + update.message.text,
-        #     chat_id=angel_chat_id
-        # )
 
 
 async def sendNonTextMessage(message, bot, chat_id):
@@ -232,6 +224,8 @@ async def sendNonTextMessage(message, bot, chat_id):
             chat_id=chat_id
         )
 
+
+# send/receive messages to/from angel / mortal
 async def message_forward(update: Update, context: CallbackContext):
     forward_chat_id = await check_message(update, context)
     if forward_chat_id:
@@ -246,18 +240,29 @@ async def message_forward(update: Update, context: CallbackContext):
                 chat_id=forward_chat_id
             )
         elif not update.message.text:
-            print("running")
             await context.bot.send_message(
                 text=f"Your {forward_to} says: ",
                 chat_id=forward_chat_id
             )
-            await sendNonTextMessage(update.message, context.bot,
-                               forward_chat_id)
+            await sendNonTextMessage(update.message, context.bot, forward_chat_id)
+        
+        # updating the last message with mortal / angel
+        if player.get_chat_with() == 'mortal':
+            
+            pass
+        elif player.get_chat_with() == 'angel':
+            pass
+
             
 
 async def angel_command(update, context):
     player = PLAYERS_ALL.get(update.effective_chat.username)
     player.set_chat_with('angel')
+    # Conversion into pinned_message instead of text for clarity 
+    await context.bot.pin_chat_message(
+        text="Chatting with Angel!",
+        chat_id=update.effective_chat.id
+    )
     await context.bot.send_message(
         text="You are now chatting with your angel!",
         chat_id=update.effective_chat.id
@@ -267,6 +272,10 @@ async def angel_command(update, context):
 async def mortal_command(update, context):
     player = PLAYERS_ALL.get(update.effective_chat.username)
     player.set_chat_with('mortal')
+    await context.bot.pin_chat_message(
+        text="Chatting with Mortal!",
+        chat_id=update.effective_chat.id
+    )
     await context.bot.send_message(
         text="You are now chatting with your mortal!",
         chat_id=update.effective_chat.id
@@ -306,7 +315,7 @@ def main() -> None:
     application.add_handler(CommandHandler('mortal', mortal_command))
     application.add_handler(CommandHandler('who', who_command))
     application.add_handler(CommandHandler('checkinfo', checkinfo))
-    application.add_handler(CommandHandler('checkinfoangel', checkinfoangel)) # for revelation on 22/9/2022
+    # application.add_handler(CommandHandler('checkinfoangel', checkinfoangel)) # for revelation
     application.add_handler(CommandHandler('instruction', instruction))
     application.add_handler(CommandHandler('blast', blast_announcement)) # for any announcement blasts, but will users be able to see it thou?
     application.run_polling()
