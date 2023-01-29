@@ -31,7 +31,8 @@ class PlayersMap:
             players[i].set_angel_mortal(
                 players[(i+1) % len(players)],
                 players[i-1]
-            )
+            ) # from player.py: set angel to be 1 below and mortal to be 1 above
+        # TODO: Troubleshoot if the last member can connected with the first to form a closed loop
         return players
 
     def get(self, username):
