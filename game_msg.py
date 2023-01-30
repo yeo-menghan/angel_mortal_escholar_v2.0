@@ -46,8 +46,9 @@ Please refer to this document for the general rules: https://docs.google.com/doc
 
 def welcome_text(username):
     text = "Welcome @" + username + \
-         " to Angel & Mortal Escholars bot! You have successfully started the bot. The event starts now "
-    text += "\n\nTo begin, /checkinfo and /instruction to find out more!\n\n"
+         " to Angel & Mortal Escholars bot! You have successfully started the bot. The event starts from now till a day before Valentine's Day (13th Feb)!"
+    text += "\n\nTo begin, /checkinfo to get your mortal's info\n\n"
+    text += "\n\nPLEASE READ THE INSTRUCTIONS! Use /instruction to check instructions!\n\n"
     return text
 
 '''relay info at start and when checkinfomortal in bot.py'''
