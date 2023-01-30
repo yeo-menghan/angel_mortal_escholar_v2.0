@@ -4,8 +4,9 @@ import gspread
 import json
 import os
 from datetime import datetime
+from dotenv import load_dotenv
+load_dotenv()
 
-# TODO update the new google sheet & receive the api key and all
 with open('creds.json', 'w') as f:
     data = json.loads(os.environ.get('GOOGLE_KEY'))
     json.dump(data, f, indent=4)
@@ -34,7 +35,7 @@ gsheetlvl0comma = commas_list(gsheetlvl0names)
 gsheetlvl1comma = commas_list(gsheetlvl1names)
 gsheetlvl2comma = commas_list(gsheetlvl2names)
 
-def chat_ids():
+def get_chat_ids():
     records = gsheet_overview.get_all_records() # stores in a list of dictionaries
     chat_ids = {d['user']: d['user_chat_id'] for d in records}
     return chat_ids

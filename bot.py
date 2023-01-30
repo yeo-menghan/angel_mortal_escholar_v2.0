@@ -164,8 +164,8 @@ async def sendNonTextMessage(message, bot, chat_id):
 
 # send/receive messages to/from angel / mortal
 async def message_forward(update: Update, context: CallbackContext):
-    username = update.message.from_user.username
-    chat_id = update.effective_chat.id
+    # username = update.message.from_user.username
+    # chat_id = update.effective_chat.id
     forward_chat_id = await check_message(update, context)
     if forward_chat_id:
         player = PLAYERS_ALL.get(update.effective_chat.username)
@@ -174,49 +174,58 @@ async def message_forward(update: Update, context: CallbackContext):
                       None
                       )
         #NEW Feature: Update timing on google sheet
-        if player.get_chat_with() == 'mortal':
-            db.update_timing_mortal(username)
-        elif player.get_chat_with() == 'angel':
-            db.update_timing_angel(username)
-
+        # if player.get_chat_with() == 'mortal':
+        #     db.update_timing_mortal(username)
+        # elif player.get_chat_with() == 'angel':
+        #     db.update_timing_angel(username)
+        
         if update.message.text:
+            print(bool(update.message.text))
+            print("yes")
+            print(type(""))
+            print(bool(""))
+            print("" == update.message.text)
+
             await context.bot.send_message(
                 text=f"Your {forward_to} says: {update.message.text}",
                 chat_id=forward_chat_id
             )
-        elif not update.message.text:
+        elif not update.message.text and not update.message.pinned_message: # At every instance of pinning a message
+            print("no")
+            print(update.message)
+
             await context.bot.send_message(
                 text=f"Your {forward_to} says: ",
-                chat_id=forward_chat_id
+                chat_id=forward_chat_id    
             )
             await sendNonTextMessage(update.message, context.bot, forward_chat_id)
 
 
 async def angel_command(update, context):
-    player = PLAYERS_ALL.get(update.effective_chat.username)
+    player=PLAYERS_ALL.get(update.effective_chat.username)
     player.set_chat_with('angel')
-    # NEW Feature: pin message when chatting to the relevant party (from your pov)
-    await context.bot.pin_chat_message(
+    message=await context.bot.send_message(
         text="Chatting with Angel!",
         chat_id=update.effective_chat.id
     )
-    await context.bot.send_message(
-        text="You are now chatting with your angel!",
-        chat_id=update.effective_chat.id
+    await context.bot.pin_chat_message(
+        chat_id=update.effective_chat.id,
+        message_id=message.message_id
     )
 
 
 async def mortal_command(update, context):
     player = PLAYERS_ALL.get(update.effective_chat.username)
     player.set_chat_with('mortal')
-    await context.bot.pin_chat_message(
+    message = await context.bot.send_message(
         text="Chatting with Mortal!",
         chat_id=update.effective_chat.id
     )
-    await context.bot.send_message(
-        text="You are now chatting with your mortal!",
-        chat_id=update.effective_chat.id
+    await context.bot.pin_chat_message(
+        chat_id=update.effective_chat.id,
+        message_id = message.message_id
     )
+    
 
 
 async def who_command(update, context):

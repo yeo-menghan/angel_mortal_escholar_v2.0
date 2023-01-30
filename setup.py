@@ -38,6 +38,7 @@ if __name__ == "__main__":
     players = setup(PLAYERS_LEVEL_0, PLAYERS_LEVEL_1, PLAYERS_LEVEL_2)
 
     [print(i) for i in players.get_players_map().items()]
+    print(players)
     player1 = players.get('yeo_menghan')
     print('angel', player1.get_angel().get_username())
     print('mortal', player1.get_mortal().get_username())

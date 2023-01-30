@@ -42,11 +42,12 @@ Also!! V impt!!! GIVE LETTERS AND NOTES TGT WITH YOUR GIFTS 🎁🥺 rmb that an
 Please refer to this document for the general rules: https://docs.google.com/document/d/1wsRdHFySartKzg-tZOqn1Epp4_7QR41NSteivokOJqA/edit?usp=sharing     
     """)
 
+#TODO: send the 2 commands for /checkinfo & /instruction
+
 def welcome_text(username):
     text = "Welcome @" + username + \
          " to Angel & Mortal Escholars bot! You have successfully started the bot. The event starts now and ends during recess bonding event!!"
-    text += "\n\n/help for commands\n\n"
-    text += relay_start_info(username)
+    text += "\n\nTo begin, /checkinfo and /instruction to find out more!\n\n"
     return text
 
 '''relay info at start and when checkinfomortal in bot.py'''
@@ -83,12 +84,12 @@ def relay_start_info(player):
     text += "Wishlist: " + '\n' + mortal_wishlist + '\n\n'
     text += "Dislikes: " + '\n' + mortal_dislikes + '\n\n'
     text += "Interests: " + '\n' + mortal_interests + '\n'
-    text += "Welfare level" + mortal_welfare_lvl + '\n'
-    text += "Prank level" + mortal_prank_lvl + '\n\n'
+    text += "Welfare level: " +  str(mortal_welfare_lvl) + '\n'
+    text += "Prank level: " + str(mortal_prank_lvl) + '\n\n'
 
     text += "To manange expectations, we're revealing your angel's welfare and prank level: " + '\n'
-    text += "Angel's welfare level: " + angel_welfare_lvl + '\n'
-    text += "Angel's prank level: " + angel_prank_lvl
+    text += "Angel's welfare level: " + str(angel_welfare_lvl) + '\n'
+    text += "Angel's prank level: " + str(angel_prank_lvl)
     return text
 
 
