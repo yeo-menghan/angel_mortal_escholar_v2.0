@@ -70,9 +70,7 @@ def update_timing_mortal(username):
     # last_seen_mortal is column +2 from username, update cell to current date and time
     gsheet_overview.update_cell(cell.row, cell.col + 2, formatted_now)
 
-def update_timing_angel(username, chat_id):
-    chat_ids = get_chat_ids()
-    chat_ids[username] = int(chat_id)
+def update_timing_angel(username):
     cell = gsheet_overview.find(username, in_column=1)
     # last_seen_angel is column +3 from username, update cell to current date and time
     gsheet_overview.update_cell(cell.row, cell.col + 3, formatted_now)

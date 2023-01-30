@@ -46,7 +46,7 @@ Please refer to this document for the general rules: https://docs.google.com/doc
 
 def welcome_text(username):
     text = "Welcome @" + username + \
-         " to Angel & Mortal Escholars bot! You have successfully started the bot. The event starts now and ends during recess bonding event!!"
+         " to Angel & Mortal Escholars bot! You have successfully started the bot. The event starts now "
     text += "\n\nTo begin, /checkinfo and /instruction to find out more!\n\n"
     return text
 

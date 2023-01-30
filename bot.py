@@ -161,10 +161,9 @@ async def sendNonTextMessage(message, bot, chat_id):
             chat_id=chat_id
         )
 
-
 # send/receive messages to/from angel / mortal
 async def message_forward(update: Update, context: CallbackContext):
-    # username = update.message.from_user.username
+    username = update.effective_chat.username
     # chat_id = update.effective_chat.id
     forward_chat_id = await check_message(update, context)
     if forward_chat_id:
@@ -174,26 +173,17 @@ async def message_forward(update: Update, context: CallbackContext):
                       None
                       )
         #NEW Feature: Update timing on google sheet
-        # if player.get_chat_with() == 'mortal':
-        #     db.update_timing_mortal(username)
-        # elif player.get_chat_with() == 'angel':
-        #     db.update_timing_angel(username)
+        if player.get_chat_with() == 'mortal':
+            db.update_timing_mortal(username)
+        elif player.get_chat_with() == 'angel':
+            db.update_timing_angel(username)
         
         if update.message.text:
-            print(bool(update.message.text))
-            print("yes")
-            print(type(""))
-            print(bool(""))
-            print("" == update.message.text)
-
             await context.bot.send_message(
                 text=f"Your {forward_to} says: {update.message.text}",
                 chat_id=forward_chat_id
             )
         elif not update.message.text and not update.message.pinned_message: # At every instance of pinning a message
-            print("no")
-            print(update.message)
-
             await context.bot.send_message(
                 text=f"Your {forward_to} says: ",
                 chat_id=forward_chat_id    
