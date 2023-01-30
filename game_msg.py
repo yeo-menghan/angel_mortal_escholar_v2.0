@@ -23,31 +23,25 @@ Hello Everyone!! Welcome to our Angel and Mortal Game AY2223 S2! 😇
 
 Our angel mortal will run from 31st January to 13th February, so ideally give 1 gift each week 
 
-Here are the rules
+Here are the rules; 
 
 1. You get assigned 1 angel and 1 mortal 
 
-2. Your angel is the person who sayang/take care of you, give you gifts and makes sure the next few weeks aren’t complete pain :”) or be the one who PRANKS you
+2. Please do not go overboard with your pranks! Refer to the document stated below for more information on what's allowed and what's not
 
-3. Your mortal is the person YOU sayang/take care of, give them gifts and make sure they stay alive for the next few weeks or the person you pull PRANKS on
+3. Pls don’t accidentally reveal your identity to your mortal in a dumb way like PM-ing them :”) if they figure it out themselves that’s cool but ya if you got anything to tell them can pm @yeo_menghan and he’ll forward your message to them!
 
-4. Pls don’t accidentally reveal your identity to your mortal in a dumb way like PM-ing them :”) if they figure it out themselves that’s cool but ya if you got anything to tell them can pm @yeo_menghan and he’ll forward your message to them!
+4. For those not on campus, fret not! You can contact @yeo_menghan to help deliver your gifts to your mortal and likewise from your angel
 
-5. For those not on campus, fret not! You can contact @yeo_menghan to help deliver your gifts to your mortal and likewise from your angel
-
-For this iteration, we're limiting PRANKING within RC4 ONLY as part of trialing the new initiative and to ensure the same level of enthusiasm is matched amongst those participating.
-
-Also!! V impt!!! GIVE LETTERS AND NOTES TGT WITH YOUR GIFTS 🎁🥺 rmb that angel mortal is for yall to get to know each other better and make new frens (from diff batches/diff residences!), and also to have an excuse to make/buy things 💌 Youre highly encouraged to leave notes for your angels also (like just leave it at your door to take the next time they come by) then you can make double the number of friends HAHAHA
+5. Also!! V impt!!! GIVE LETTERS AND NOTES TGT WITH YOUR GIFTS 🎁🥺 rmb that angel mortal is for yall to get to know each other better and make new frens (from diff batches/diff residences!), and also to have an excuse to make/buy things 💌 Youre highly encouraged to leave notes for your angels also (like just leave it at your door to take the next time they come by) then you can make double the number of friends HAHAHA
 
 Please refer to this document for the general rules: https://docs.google.com/document/d/1wsRdHFySartKzg-tZOqn1Epp4_7QR41NSteivokOJqA/edit?usp=sharing     
     """)
 
-#TODO: send the 2 commands for /checkinfo & /instruction
-
 def welcome_text(username):
     text = "Welcome @" + username + \
          " to Angel & Mortal Escholars bot! You have successfully started the bot. The event starts from now till a day before Valentine's Day (13th Feb)!"
-    text += "\n\nTo begin, /checkinfo to get your mortal's info\n\n"
+    text += "\n\nTo begin, /checkinfo to get your mortal's info"
     text += "\n\nPLEASE READ THE INSTRUCTIONS! Use /instruction to check instructions!\n\n"
     return text
 
