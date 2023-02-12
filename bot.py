@@ -67,9 +67,9 @@ async def check_start_info(update: Update, context: CallbackContext):
     await context.bot.send_message(text=game_msg.relay_start_info(username), chat_id=update.effective_chat.id)
 
 '''Only made available during revelation'''
-# async def reveal(update: Update, context: CallbackContext):
-#     username = update.message.from_user.username
-#     await context.bot.send_message(text=game_msg.revelation(username), chat_id=update.effective_chat.id)
+async def reveal(update: Update, context: CallbackContext):
+    username = update.message.from_user.username
+    await context.bot.send_message(text=game_msg.revelation(username), chat_id=update.effective_chat.id)
 
 async def instruction(update: Update, context: CallbackContext):
     await update.message.reply_text(game_msg.INSTRUCTION)
@@ -217,7 +217,6 @@ async def mortal_command(update, context):
     )
     
 
-
 async def who_command(update, context):
     player = PLAYERS_ALL.get(update.effective_chat.username)
     chat_with = player.get_chat_with()
@@ -232,8 +231,6 @@ async def who_command(update, context):
             text="You are currently not chatting with anyone."
         )
 
-#TODO daily message from the google sheet database to remind players of the day alongside a quote of the day about friendship
-
 def main() -> None:
     application.add_handler(MessageHandler(~filters.COMMAND, message_forward))
     application.add_handler(CommandHandler('start', start))
@@ -242,7 +239,7 @@ def main() -> None:
     application.add_handler(CommandHandler('mortal', mortal_command))
     application.add_handler(CommandHandler('who', who_command))
     application.add_handler(CommandHandler('checkinfo', check_start_info))
-    # application.add_handler(CommandHandler('reveal', reveal)) # for revelation
+    application.add_handler(CommandHandler('reveal', reveal)) # for revelation
     application.add_handler(CommandHandler('instruction', instruction))
     application.add_handler(CommandHandler('blast', blast_announcement)) # for any announcement blasts, but will users be able to see it thou?
     application.run_polling()

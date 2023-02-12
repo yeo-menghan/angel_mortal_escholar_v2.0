@@ -92,7 +92,7 @@ def revelation(player):
     angel = PLAYERS_ALL.get(player).get_angel().get_username()
     angel_name = PLAYER_COMBINED_INFO[angel]["name"]
     text = "Your Angel is " + angel_name + " @" + angel + '\n\n'
-    text += "Kinda anti-climatic :') BBBUT Hope that Angel & Mortal has been fun for everybody! " + '\n\n'
-    text += "Please do give your angel something in return to thank them for the last 2 weeks of welfare!" + '\n\n'
+    text += "Hope that Angel & Mortal has been fun for everybody!" + '\n\n'
+    text += "Please do refer to this link for revelation: https://tinyurl.com/angel-mortal" + '\n\n'
     text += "Thank you so much for signing up for this iteration and hope you have a nice day ahead :)" + '\n'
     return text
