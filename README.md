@@ -20,7 +20,75 @@ Before you begin, ensure you have met the following requirements:
 - Google Cloud account with access to Google Sheets API
 - A service account with `creds.json` containing your Google Sheets credentials
 
-## Setup
+
+## Google Cloud Authentication Setup
+
+To set up Google Cloud authentication for accessing the Google Sheets API, follow these steps:
+
+1. **Create a Google Cloud Project**:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/).
+   - Click on "Select a Project" and then "New Project."
+   - Enter a project name and click "Create."
+
+2. **Enable the Google Sheets API**:
+   - In the Google Cloud Console, navigate to the "APIs & Services" > "Library."
+   - Search for "Google Sheets API" and click on it.
+   - Click "Enable" to activate the API for your project.
+
+3. **Create a Service Account**:
+   - Go to "APIs & Services" > "Credentials."
+   - Click on "Create Credentials" and select "Service Account."
+   - Fill in the service account name and description, then click "Create."
+   - On the next page, click "Done."
+
+4. **Create a JSON Key**:
+   - Find your newly created service account in the list and click on it.
+   - Click on the "Keys" tab, then "Add Key" > "Create New Key."
+   - Choose "JSON" and click "Create." This will download a JSON file containing your service account credentials.
+
+5. **Share the Google Sheet**:
+   - Open your Google Sheet (request yeomenghan1989@gmail.com for a sample google sheet format).
+   - Click the "Share" button.
+   - Add the service account email (found in the downloaded JSON file) with at least "Viewer" permissions.
+
+6. **Set Up Environment Variable**:
+   - Copy the contents of the JSON file and set it in your `.env` file as follows:
+
+   ```plaintext
+   GOOGLE_KEY='{"type": "service_account", "project_id": "your-project-id", ...}'
+   ```
+
+## Telegram Bot Setup with BotFather
+
+This document outlines the steps to create a Telegram bot using BotFather and obtain the necessary API token for your bot.
+
+1. Open Telegram
+
+    Launch the Telegram app or visit the [Telegram Web](https://web.telegram.org/) interface.
+
+2. Find BotFather
+  - In the search bar, type `@BotFather`.
+  - Click on the BotFather bot to open a chat.
+
+3. Start a New Bot
+  - Send the command `/newbot` to BotFather.
+  - Follow the prompts:
+    - **Choose a name** for your bot (this can be anything you like).
+    - **Choose a username** for your bot (must end with `bot`, e.g., `example_bot`).
+
+4. Receive Your API Token
+  - After successfully creating the bot, BotFather will provide you with an **API token**.
+  - **Keep this token safe**, as it is required for your bot to authenticate with the Telegram API.
+
+5. Set Up Environment Variable
+
+  - Store your API token in your project’s `.env` file (or any configuration method you prefer) as follows:
+
+    ```plaintext
+    API_KEY=your_telegram_bot_api_token
+    ```
+
+## Project Setup
 
 1. **Clone the repository:**
 
@@ -60,7 +128,6 @@ Before you begin, ensure you have met the following requirements:
     ```bash
     python bot.py
     ```
-
 
 7. **Deploy Bot on Heroku / Google Cloud / AWS**
 

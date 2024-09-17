@@ -8,8 +8,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 with open('creds.json', 'w') as f:
-    data = json.loads(os.environ.get('GOOGLE_KEY'))
-    json.dump(data, f, indent=4)
+    google_key = json.loads(os.environ.get('GOOGLE_KEY'))
+    # print(google_key)  # Debugging line
+    json.dump(google_key, f, indent=4)
 
 service_account = gspread.service_account(filename="creds.json")
 workbook = service_account.open("angel-mortal-responses")
@@ -40,12 +41,30 @@ def get_chat_ids():
     chat_ids = {d['user']: d['user_chat_id'] for d in records}
     return chat_ids
 
+# def update_chat_ids(username, chat_id):
+#     ''' Used in start_command for player validation'''
+#     chat_ids = get_chat_ids()
+#     chat_ids[username] = int(chat_id)
+#     print(f"Searching for username: {username}")
+#     cell = gsheet_overview.find(username, in_column=1)     # search user column (column A) for username
+#     if cell is None:
+#         print(f"Username '{username}' not found in Google Sheet.")
+#         return chat_ids  # or handle it according to your application logic
+#     gsheet_overview.update_cell(cell.row, cell.col + 1, chat_ids[username])     # update user_chat_id (same row, col+1)
+#     return chat_ids
+
 def update_chat_ids(username, chat_id):
     ''' Used in start_command for player validation'''
     chat_ids = get_chat_ids()
-    chat_ids[username] = int(chat_id) 
-    cell = gsheet_overview.find(username, in_column=1)     # search user column (column A) for username
-    gsheet_overview.update_cell(cell.row, cell.col + 1, chat_ids[username])     # update user_chat_id (same row, col+1)
+    chat_ids[username] = int(chat_id)
+    print(f"Searching for username: {username}")
+    cell = gsheet_overview.find(username, in_column=1)  # search user column (column A)
+
+    if cell is None:
+        print(f"Username '{username}' not found in Google Sheet.")
+        return chat_ids  # or handle as needed
+
+    gsheet_overview.update_cell(cell.row, cell.col + 1, chat_ids[username])  # update user_chat_id (same row, col+1)
     return chat_ids
 
 
