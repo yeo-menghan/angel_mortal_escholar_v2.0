@@ -17,7 +17,7 @@ load_dotenv()
 from setup import setup
 import db, game_msg
 
-API_KEY = os.environ.get('API_KEY')
+API_KEY = os.environ.get('TELEGRAM_API_KEY')
 CHAT_IDS = db.get_chat_ids()
 PLAYERS_ALL = setup() # load angel and mortal pairing
 PLAYER_COMBINED_INFO = db.PLAYER_COMBINED_INFO # load dictionary of all registered players
@@ -50,9 +50,9 @@ async def start(update: Update, context: CallbackContext):
         update_chat_id(username, chat_id)
     await context.bot.send_message(
         chat_id=chat_id,
-        text=game_msg.welcome_text(username)) 
+        text=game_msg.welcome_text(username))
     # once player /start on telegram, their chat_id will become numerical and start to work within this program
-    
+
 '''For General Announcements + Using '/blast' command'''
 async def blast_announcement(update, context):
     if (update.effective_chat.username == "yeo_menghan"):
@@ -78,8 +78,8 @@ async def check_message(update: Update, context: CallbackContext):
     player = PLAYERS_ALL.get(update.effective_chat.username)
     if not player:
         await context.bot.send_message(
-            text="Sorry, not registered as participant in Angel&Mortal. " + 
-                "If you think it's a mistake, please contact @yeo_menghan.", 
+            text="Sorry, not registered as participant in Angel&Mortal. " +
+                "If you think it's a mistake, please contact @yeo_menghan.",
                 chat_id=update.effective_chat.id
         )
         return
@@ -177,7 +177,7 @@ async def message_forward(update: Update, context: CallbackContext):
             db.update_timing_mortal(username)
         elif player.get_chat_with() == 'angel':
             db.update_timing_angel(username)
-        
+
         if update.message.text:
             await context.bot.send_message(
                 text=f"Your {forward_to} says: {update.message.text}",
@@ -186,7 +186,7 @@ async def message_forward(update: Update, context: CallbackContext):
         elif not update.message.text and not update.message.pinned_message: # At every instance of pinning a message
             await context.bot.send_message(
                 text=f"Your {forward_to} says: ",
-                chat_id=forward_chat_id    
+                chat_id=forward_chat_id
             )
             await sendNonTextMessage(update.message, context.bot, forward_chat_id)
 
@@ -215,7 +215,7 @@ async def mortal_command(update, context):
         chat_id=update.effective_chat.id,
         message_id = message.message_id
     )
-    
+
 
 async def who_command(update, context):
     player = PLAYERS_ALL.get(update.effective_chat.username)
